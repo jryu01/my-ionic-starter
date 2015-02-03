@@ -1,0 +1,21 @@
+{
+  "camelcase": true,
+  "strict": true,
+  "curly": true,
+  "eqeqeq": true,
+  "undef": true,
+  "unused": "vars",
+  "globalstrict": true,
+  "globals": {
+    "window": false,
+    "angular": false,
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "sinon": false,
+    "module": false,
+    "inject": false
+  }
+}
