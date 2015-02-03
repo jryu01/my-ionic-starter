@@ -12,10 +12,13 @@ var gulp = require('gulp'),
     sh = require('shelljs');
 
 var paths = {
-  sass: ['./www/app/**/*.scss']
+  sass: ['./www/app/**/*.scss'],
+  scripts: {
+    app: ['./www/app/**/*.js'] 
+  }
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'index']);
 
 gulp.task('sass', function () {
   return gulp.src('./www/app/*.scss')
@@ -38,6 +41,7 @@ gulp.task('index', function () {
 
 gulp.task('watch', function () {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts.app, ['index']);
 });
 
 gulp.task('install', ['git-check'], function () {
