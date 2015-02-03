@@ -8,6 +8,7 @@ var bower = require('bower');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var inject = require('gulp-inject');
 var sh = require('shelljs');
 
 var paths = {
@@ -26,6 +27,14 @@ gulp.task('sass', function (done) {
     .pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest('./www/css/'))
     .on('end', done);
+});
+
+gulp.task('index', function () {
+  var target = gulp.src('./www/index.html'),
+      sources = gulp.src('./www/app/**/*.js', { read: false });
+  return target
+    .pipe(inject(sources, { relative: true }))
+    .pipe(gulp.dest('./www'));
 });
 
 gulp.task('watch', function () {

@@ -14,10 +14,12 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- your app's js -->
+    <!-- app's js (injected by gulp-inject)-->
+    <!-- inject:js -->
     <script src="app/app.js"></script>
     <script src="app/home/home.js"></script>
     <script src="app/profile/profile.js"></script>
+    <!-- endinject --> 
   </head>
   <body ng-app="myIonicStarter">
     <!--
