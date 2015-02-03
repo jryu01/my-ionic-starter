@@ -1,21 +1,37 @@
 {
+  // Enforcing options
+  "globals": {
+      "angular": false
+  },
+  "bitwise": true,
   "camelcase": true,
-  "strict": true,
   "curly": true,
   "eqeqeq": true,
-  "undef": true,
-  "unused": "vars",
+  "es5": true,
+  "forin": true,
+  "freeze": true,
+  "funcscope": true,
   "globalstrict": true,
-  "globals": {
-    "window": false,
-    "angular": false,
-    "describe": false,
-    "it": false,
-    "expect": false,
-    "beforeEach": false,
-    "afterEach": false,
-    "sinon": false,
-    "module": false,
-    "inject": false
-  }
+  "immed": true,
+  "iterator": true,
+  "latedef": true,
+  "maxcomplexity": 4,
+  "maxdepth": 4,
+  "maxparams": 4,
+  "maxstatements": 25,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonbsp": true,
+  "nonew": true,
+  "quotmark": true,
+  "singleGroups": true,
+  "undef": true,
+  "unused": true,
+
+  // Relexing Options
+
+  // Environments
+  "browser": true,
+  "mocha": true
 }
