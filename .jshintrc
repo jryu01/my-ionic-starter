@@ -7,7 +7,6 @@
   "camelcase": true,
   "curly": true,
   "eqeqeq": true,
-  "es5": true,
   "forin": true,
   "freeze": true,
   "funcscope": true,
