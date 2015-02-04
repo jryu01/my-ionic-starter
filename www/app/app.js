@@ -2,6 +2,7 @@
 
 angular.module('myIonicStarter', [
   'ionic',
+  'myIonicStarter.config',
   'myIonicStarter.home',
   'myIonicStarter.profile',
 ])
@@ -19,7 +20,7 @@ angular.module('myIonicStarter', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider
 
