@@ -87,7 +87,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
-gulp.task('install', ['bower-install', 'cordova-plugin-install', 'config']);
+gulp.task('install', ['bower-install', 'cordova-plugin-install', 'build']);
 
 gulp.task('bower-install', function () {
   return bower.commands.install()
