@@ -24,9 +24,9 @@ angular.module('myIonicStarter', [
   $stateProvider
 
   .state('tab', {
-    url: "/tab",
+    url: '/tab',
     abstract: true,
-    templateUrl: "app/tab.html"
+    templateUrl: 'app/tab.html'
   });
 
   $urlRouterProvider.otherwise('/tab/home');
