@@ -26,8 +26,8 @@ var paths = {
 
 gulp.task('default',['build']);
 
-gulp.task('build', function (callback) {
-  runSequence('config', ['sass', 'index'], 'lint', callback);
+gulp.task('build', function (done) {
+  runSequence('config', ['sass', 'index'], 'lint', done);
 });
 
 gulp.task('config', function (done) {
@@ -87,7 +87,9 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
-gulp.task('install', ['bower-install', 'cordova-plugin-install', 'build']);
+gulp.task('install', function (done) {
+  runSequence(['bower-install', 'cordova-plugin-install'], 'build', done);
+});
 
 gulp.task('bower-install', function () {
   return bower.commands.install()
