@@ -30,20 +30,24 @@ gulp.task('build', function (callback) {
   runSequence('config', ['sass', 'index'], 'lint', callback);
 });
 
-
 gulp.task('config', function (done) {
-  var config = require('./www/app/config.json');
-  var compiled = _.template(
+  var env = (argv.production && 'production') || (argv.test && 'test'),
+      config = require('./www/app/config.json'),
+      newFile,
+      compiled;
+
+  compiled = _.template(
     '\'use strict\';\n' +
     '/* jshint quotmark: false */\n\n' +
     'angular.module(\'<%= moduleName %>\', [])\n\n' +
     '.constant(\'config\', <%= config %>);'
   );
-  var env = (argv.production && 'production') || (argv.test && 'test');
-  var newFile = compiled({
+
+  newFile = compiled({
     'config': JSON.stringify(config[env ||'development'], null, 2),
     'moduleName': config.configModuleName
   });
+  
   fs.writeFile('./www/app/components/config/config.js', newFile, function () {
     gutil.log('Running  \'' + 
       gutil.colors.cyan('config') +'\' with ' + 
