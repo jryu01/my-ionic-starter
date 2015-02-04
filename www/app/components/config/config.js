@@ -1,7 +1,8 @@
 'use strict';
+/* jshint quotmark: false */
 
 angular.module('myIonicStarter.config', [])
 
 .constant('config', {
-  baseUrl: 'http://apiserver.com/api',
+  "baseUrl": "http://localhost:3000/api"
 });

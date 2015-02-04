@@ -24,7 +24,6 @@
   "nonbsp": true,
   "nonew": true,
   "quotmark": true,
-  "singleGroups": true,
   "undef": true,
   "unused": true,
 

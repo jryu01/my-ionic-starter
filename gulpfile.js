@@ -11,7 +11,10 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     rename = require('gulp-rename'),
     inject = require('gulp-inject'),
-    sh = require('shelljs');
+    argv   = require('yargs').argv,
+    fs = require('fs'),
+    sh = require('shelljs'),
+    _ = require('lodash');
 
 var paths = {
   sass: ['./www/app/**/*.scss'],
@@ -20,7 +23,29 @@ var paths = {
   }
 };
 
-gulp.task('default', ['sass', 'index', 'lint']);
+gulp.task('default', ['config', 'sass', 'index', 'lint']);
+
+gulp.task('config', function (done) {
+  var config = require('./www/app/config.json');
+  var compiled = _.template(
+    '\'use strict\';\n' +
+    '/* jshint quotmark: false */\n\n' +
+    'angular.module(\'<%= moduleName %>\', [])\n\n' +
+    '.constant(\'config\', <%= config %>);'
+  );
+  var env = (argv.production && 'production') || (argv.test && 'test');
+  var newFile = compiled({
+    'config': JSON.stringify(config[env ||'development'], null, 2),
+    'moduleName': config.configModuleName
+  });
+  fs.writeFile('./www/app/components/config/config.js', newFile, function () {
+    gutil.log('Running  \'' + 
+      gutil.colors.cyan('config') +'\' with ' + 
+      gutil.colors.magenta(env || 'development')
+      );
+    done();
+  });
+});
 
 gulp.task('sass', function () {
   return gulp.src('./www/app/*.scss')
@@ -52,7 +77,9 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
-gulp.task('install', ['ionic-check', 'bower-install', 'cordova-plugin-install']);
+gulp.task('install', [
+  'ionic-check', 'bower-install', 'cordova-plugin-install', 'config'
+]);
 
 gulp.task('bower-install', function () {
   return bower.commands.install()
@@ -61,7 +88,9 @@ gulp.task('bower-install', function () {
     });
 });
 
-gulp.task('cordova-plugin-install', function () {
+gulp.task('cordova-plugin-install', [
+  'ionic-check', 'bower-install'
+], function () {
   require('./plugins.json').forEach(function (plugin) {
     sh.exec('cordova plugin add ' + plugin);
   });
