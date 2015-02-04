@@ -1,20 +1,21 @@
 'use strict';
 /*jshint node: true */
 
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    jshint = require('gulp-jshint'),
-    stylish = require('jshint-stylish'),
-    bower = require('bower'),
-    // concat = require('gulp-concat'),
-    sass = require('gulp-sass'),
-    minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename'),
-    inject = require('gulp-inject'),
-    argv   = require('yargs').argv,
+var _ = require('lodash'),
     fs = require('fs'),
     sh = require('shelljs'),
-    _ = require('lodash');
+    argv = require('yargs').argv,
+    sass = require('gulp-sass'),
+    gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    bower = require('bower'),
+    jshint = require('gulp-jshint'),
+    rename = require('gulp-rename'),
+    inject = require('gulp-inject'),
+    stylish = require('jshint-stylish'),
+    minifyCss = require('gulp-minify-css'),
+    // concat = require('gulp-concat'),
+    runSequence = require('run-sequence');
 
 var paths = {
   sass: ['./www/app/**/*.scss'],
@@ -23,7 +24,12 @@ var paths = {
   }
 };
 
-gulp.task('default', ['config', 'sass', 'index', 'lint']);
+gulp.task('default',['build']);
+
+gulp.task('build', function (callback) {
+  runSequence('config', ['sass', 'index'], 'lint', callback);
+});
+
 
 gulp.task('config', function (done) {
   var config = require('./www/app/config.json');
@@ -77,9 +83,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
-gulp.task('install', [
-  'ionic-check', 'bower-install', 'cordova-plugin-install', 'config'
-]);
+gulp.task('install', ['bower-install', 'cordova-plugin-install', 'config']);
 
 gulp.task('bower-install', function () {
   return bower.commands.install()
@@ -88,9 +92,7 @@ gulp.task('bower-install', function () {
     });
 });
 
-gulp.task('cordova-plugin-install', [
-  'ionic-check', 'bower-install'
-], function () {
+gulp.task('cordova-plugin-install', ['ionic-check'], function () {
   require('./plugins.json').forEach(function (plugin) {
     sh.exec('cordova plugin add ' + plugin);
   });
