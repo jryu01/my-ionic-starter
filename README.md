@@ -11,7 +11,7 @@ Notes:
 
 ## How to Install
 
-This is an starter project for ionic project. So, it requires ionic and cordova.
+This is an starter project for ionic project. So, it requires ionic and cordova. If ionic and cordova is not already installed, run:
 
 ```bash
 $ sudo npm install -g ionic cordova
@@ -22,7 +22,7 @@ Then, to install, simply run:
 ```bash
 $ npm install
 ```
-Then, to run it, run:
+Then, to start app using ios simulator, run:
 
 ```bash
 $ ionic platform add ios
