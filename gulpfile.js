@@ -3,6 +3,8 @@
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
+    jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish'),
     bower = require('bower'),
     // concat = require('gulp-concat'),
     sass = require('gulp-sass'),
@@ -18,7 +20,7 @@ var paths = {
   }
 };
 
-gulp.task('default', ['sass', 'index']);
+gulp.task('default', ['sass', 'index', 'lint']);
 
 gulp.task('sass', function () {
   return gulp.src('./www/app/*.scss')
@@ -39,9 +41,15 @@ gulp.task('index', function () {
     .pipe(gulp.dest('./www'));
 });
 
+gulp.task('lint', function() {
+  return gulp.src('./www/app/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
 gulp.task('watch', function () {
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.scripts.app, ['index']);
+  gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
 gulp.task('install', ['git-check'], function () {
