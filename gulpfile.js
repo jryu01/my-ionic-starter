@@ -52,21 +52,29 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts.app, ['index', 'lint']);
 });
 
-gulp.task('install', ['git-check'], function () {
+gulp.task('install', ['ionic-check', 'bower-install', 'cordova-plugin-install']);
+
+gulp.task('bower-install', function () {
   return bower.commands.install()
     .on('log', function (data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
 });
 
-gulp.task('git-check', function (done) {
-  if (!sh.which('git')) {
+gulp.task('cordova-plugin-install', function () {
+  require('./plugins.json').forEach(function (plugin) {
+    sh.exec('cordova plugin add ' + plugin);
+  });
+});
+
+gulp.task('ionic-check', function (done) {
+  if (!sh.which('ionic') || !sh.which('cordova')) {
     console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
-      '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:',
-      gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+      '  ' + gutil.colors.red('Ionic or Cordova is not installed.'),
+      '\n  Ionic and Cordova is required to build',
+      '\n  Install Ionic and cordova: ',
+      gutil.colors.cyan('npm install -g cordova ionic'),
+      '\n  Once installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
     );
     process.exit(1);
   }
