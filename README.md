@@ -6,9 +6,9 @@ Notes:
 - Files and directories are organized by feature not by file type ( controller, directive, service)
 - Cordova plugins can be easliy installed by just putting plugin url or id in plugins.json file and simply running `gulp install`
 - It uses sass to build css style sheet: `gulp sass` 
-- Any scripts in www/app and sub folders (`www/app/**/*.js`) are added to index.html file easily running `gulp index` 
+- Any scripts in `www/app (`www/app/**/*.js`) are added to index.html file easily running `gulp index` 
 - It uses jshint to check code quality: `gulp lint`
-- `gulp config --option` where option is one of 'production' or 'test' (default to development) build environment specific angular config module in www/app/components/config using www/app/config.json
+- `gulp config --option` where option is one of 'production' or 'test' (defaults to development) build environment specific angular config module in `www/app/components/config` using `www/app/config.json`
 
 ## How to Install
 
