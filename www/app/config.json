@@ -1,12 +1,15 @@
 {
   "configModuleName": "myIonicStarter.config",
   "development": {
+    "env": "development",
     "baseUrl": "http://localhost:3000/api"
   },
   "test": {
+    "env": "test",
     "baseUrl": "http://testserver.com/api"
   },
   "production": {
+    "env": "production",
     "baseUrl": "http://productionserver.com/api"
   }
 }
