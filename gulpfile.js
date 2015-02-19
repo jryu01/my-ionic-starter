@@ -20,7 +20,7 @@ var _ = require('lodash'),
 var paths = {
   sass: ['./www/app/**/*.scss'],
   scripts: {
-    app: ['./www/app/**/*.js'] 
+    app: ['./www/app/**/*.js', '!./www/app/**/*.spec.js']
   }
 };
 
